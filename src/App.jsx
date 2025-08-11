@@ -7,12 +7,28 @@ function App() {
 
   return (
     <>
-
-    <ProductCard name="Apple iPad" price="$499" image="https://www.apple.com/assets-www/en_WW/ipad/product_tile/xlarge/ipad_pro_f1345e8ae.png"/>
-
-    <ProductCard name="Apple Watch" price="$399" image="https://www.apple.com/v/watch/br/images/overview/select/product_se__c83w8hz9gre6_large.png"/>
     
-    <ProductCard name="Mac Book Pro" price="$1299" image="https://www.apple.com/assets-www/en_WW/mac/product_tile/xlarge/mba_13_15_2fb165671.png"/>
+    <div className="h-[700px] w-[700px] border-[5px] flex justify-center items-center">
+
+      <div className="w-[300px] h-[100px] relative bg-blue-400 flex flex-row justify-center items-center">
+
+        <button className="bg-red-900 absolute top-[0px] right-[0px]">X</button>
+
+        <button className='text-white bg-green-500 fixed button-[0px] right-[0px] p-[20px]'>Chat with WhatsApp</button>
+
+        <h1>Your time has over</h1>
+      </div>
+
+      <div className="w-[300px] h-[300px] bg-pink-400 p-[40px] m-[20px]">
+        <div className="w-[50px] h-[50px] bg-yellow-500">
+
+        </div>
+
+
+
+      </div>
+    </div>
+
     </>
   )
 }
