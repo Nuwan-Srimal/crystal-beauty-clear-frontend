@@ -1,36 +1,26 @@
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
-import ProductCard from './components/productCard'
+import ProductCard from './components/productCard';
+import AdminPage from './pages/adminPage';
+import HomePage from './pages/homePage';
+import TestPage from './pages/test';
+
 
 function App() {
-  
+	return (
+		<BrowserRouter>
+			<div className="w-full h-[100vh] ">
 
-  return (
-    <>
-    
-    <div className="h-[700px] w-[700px] border-[5px] flex justify-center items-center">
+				<Routes path="/">
+					<Route path="/*" element={<HomePage/>}/>
+					<Route path="/register" element={<h1>Register page</h1>} />
+					<Route path="/admin/*" element={<AdminPage/>} />
+					<Route path="/test" element={<TestPage/>}/>			
+				</Routes>
 
-      <div className="w-[300px] h-[100px] relative bg-blue-400 flex flex-row justify-center items-center">
-
-        <button className="bg-red-900 absolute top-[0px] right-[0px]">X</button>
-
-        <button className='text-white bg-green-500 fixed button-[0px] right-[0px] p-[20px]'>Chat with WhatsApp</button>
-
-        <h1>Your time has over</h1>
-      </div>
-
-      <div className="w-[300px] h-[300px] bg-pink-400 p-[40px] m-[20px]">
-        <div className="w-[50px] h-[50px] bg-yellow-500">
-
-        </div>
-
-
-
-      </div>
-    </div>
-
-    </>
-  )
+			</div>
+		</BrowserRouter>
+	);
 }
 
-export default App
+export default App;
