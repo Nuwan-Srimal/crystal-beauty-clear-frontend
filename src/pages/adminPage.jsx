@@ -5,6 +5,7 @@ import { BsBox2Heart } from "react-icons/bs";
 import { HiOutlineUsers } from "react-icons/hi";
 import AdminProductPage from "./admin/adminProductPage";
 import AddProductPage from "./admin/adminAddNewProduct";
+import UpdateProductPage from "./admin/adminUpdateProduct";
 
 export default function AdminPage() {
 	return (
@@ -18,22 +19,34 @@ export default function AdminPage() {
 					/>
 					<span className="text-white text-xl ml-4">Admin panel</span>
 				</div>
-                <Link to="/admin" className="w-[90%] flex items-center gap-2 px-4  rounded-lg">
-                    <FaChartLine  />
-                    Dashboard
-                </Link>
-                <Link to="/admin/orders" className="w-[90%] flex items-center gap-2 px-4  rounded-lg">
-                    <MdShoppingCartCheckout className="text-xl"/>
-                    Orders
-                </Link>
-                <Link to="/admin/products" className="w-[90%] flex items-center gap-2 px-4  rounded-lg">
-                    <BsBox2Heart />
-                    Products
-                </Link>
-                <Link to="/admin/users" className="w-[90%] flex items-center gap-2 px-4  rounded-lg">
-                    <HiOutlineUsers />
-                    Users
-                </Link>
+                				<Link
+					to="/admin"
+					className="w-[90%] flex items-center gap-2 px-4  rounded-lg"
+				>
+					<FaChartLine />
+					Dashboard
+				</Link>
+				<Link
+					to="/admin/orders"
+					className="w-[90%] flex items-center gap-2 px-4  rounded-lg"
+				>
+					<MdShoppingCartCheckout className="text-xl" />
+					Orders
+				</Link>
+				<Link
+					to="/admin/products"
+					className="w-[90%] flex items-center gap-2 px-4  rounded-lg"
+				>
+					<BsBox2Heart />
+					Products
+				</Link>
+				<Link
+					to="/admin/users"
+					className="w-[90%] flex items-center gap-2 px-4  rounded-lg"
+				>
+					<HiOutlineUsers />
+					Users
+				</Link>
 			</div>
 			<div className="w-[calc(100%-300px)] h-full border-[4px] border-accent rounded-[20px] overflow-hidden">
 				<div className=" h-full w-full max-w-full max-h-full overflow-y-scroll">
@@ -42,6 +55,7 @@ export default function AdminPage() {
 						<Route path="/products" element={<AdminProductPage/>} />
 						<Route path="/orders" element={<h1>Orders</h1>} />
                         <Route path="/add-product" element={<AddProductPage />} />
+						<Route path="/update-product" element={<UpdateProductPage />} />
 					</Routes>
 				</div>
 			</div>

@@ -1,22 +1,23 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import mediaUpload from "../../utils/mediaUpload";
 import toast from "react-hot-toast";
 import axios from "axios";
 
-export default function AddProductPage() {
-	const [productId, setProductId] = useState("");
-	const [name, setName] = useState("");
-	const [altNames, setAltNames] = useState("");
-	const [description, setDescription] = useState("");
+export default function UpdateProductPage() {
+    const location = useLocation()
+	const [productId, setProductId] = useState(location.state.productID);
+	const [name, setName] = useState(location.state.name);
+	const [altNames, setAltNames] = useState(location.state.altNames.join(","));
+	const [description, setDescription] = useState(location.state.description);
 	const [images, setImages] = useState([]);
-	const [price, setPrice] = useState(0);
-	const [labelledPrice, setLabelledPrice] = useState(0);
-	const [category, setCategory] = useState("cream");
-	const [stock, setStock] = useState(0);
+	const [price, setPrice] = useState(location.state.price);
+	const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
+	const [category, setCategory] = useState(location.state.category);
+	const [stock, setStock] = useState(location.state.stock);
 	const navigate = useNavigate();
 
-	async function addProduct() {
+	async function updateProduct() {
 		const token = localStorage.getItem("token");
 		if (token == null) {
 			navigate("/login");
@@ -29,7 +30,12 @@ export default function AddProductPage() {
 		}
 		//
 		try {
-			const urls = await Promise.all(promises);
+			let urls = await Promise.all(promises);
+
+            if(urls.length == 0 ){
+                urls = location.state.images
+            }
+
 			const alternativeNames = altNames.split(",")
 
 			const product = {
@@ -44,12 +50,12 @@ export default function AddProductPage() {
 				stock : stock
 			}
 
-			await axios.post(import.meta.env.VITE_API_URL+"/api/products",product,{
+			await axios.put(import.meta.env.VITE_API_URL+"/api/products/"+productId,product,{
 				headers:{
 					Authorization : "Bearer "+token
 				}
 			})
-			toast.success("Product added successfully");
+			toast.success("Product updated successfully");
 			navigate("/admin/products");
 
 		} catch {
@@ -65,7 +71,7 @@ export default function AddProductPage() {
 				<div className="flex items-center justify-between gap-3 border-b border-accent/20 px-6 py-5">
 					<div>
 						<h1 className="text-xl font-semibold text-secondary">
-							Add Product
+							Update Product
 						</h1>
 						<p className="text-sm text-secondary/70">
 							Create a new SKU with clean metadata.
@@ -83,6 +89,7 @@ export default function AddProductPage() {
 								Product ID
 							</span>
 							<input
+                                disabled
 								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
 								value={productId}
 								onChange={(e) => {
@@ -230,7 +237,7 @@ export default function AddProductPage() {
 							Cancel
 						</button>
 						<button
-							onClick={addProduct}
+							onClick={updateProduct}
 							className="rounded-full bg-accent/15 px-3 h-[40px] w-[100px] py-1 text-md flex justify-center items-center font-medium text-secondary ring-1 ring-accent/30 hover:border-accent hover:border-[2px]"
 						>
 							Submit

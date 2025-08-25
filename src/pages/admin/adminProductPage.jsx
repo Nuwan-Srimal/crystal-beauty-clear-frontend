@@ -3,10 +3,11 @@ import { useEffect, useState } from "react";
 import { CiCirclePlus } from "react-icons/ci";
 import { FaRegEdit } from "react-icons/fa";
 import { FaRegTrashCan } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function AdminProductPage() {
 	const [products, setProducts] = useState([]);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios
@@ -55,6 +56,9 @@ export default function AdminProductPage() {
 										Labelled Price
 									</th>
 									<th className="sticky top-0 z-10 px-4 py-3 text-xs font-semibold uppercase tracking-wide">
+										Stock
+									</th>
+									<th className="sticky top-0 z-10 px-4 py-3 text-xs font-semibold uppercase tracking-wide">
 										Category
 									</th>
 									<th className="sticky top-0 z-10 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-center">
@@ -93,6 +97,11 @@ export default function AdminProductPage() {
 													LKR {item.labelledPrice}
 												</span>
 											</td>
+											<td className="px-4 py-3 text-secondary/70">
+												<span className="text-sm">
+													{item.stock}
+												</span>
+											</td>											
 											<td className="px-4 py-3">
 												<span className="rounded-full bg-accent/10 px-2.5 py-1 text-xs font-medium text-accent">
 													{item.category}
@@ -111,6 +120,11 @@ export default function AdminProductPage() {
 														size={36}
 														title="Edit"
 														aria-label="Edit product"
+														onClick={()=>{
+															navigate("/admin/update-product" , {
+																state : item
+															})
+														}}														
 													/>
 												</div>
 											</td>
