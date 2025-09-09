@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function ProductCard(props) {
 	const product = props.product;
@@ -15,9 +16,9 @@ export default function ProductCard(props) {
 			}
 			<p className="text-sm text-secondary/70">{product.productID}</p>
 			<p className="text-sm text-secondary/70">{product.category}</p>
-			<button className="w-full h-[30px] mt-[5px] border border-accent text-accent hover:bg-accent hover:text-white">
+			<Link to={"/overview/"+product.productID} className="w-full h-[30px] mt-[5px] border text-center border-accent text-accent hover:bg-accent hover:text-white">
 				View Product
-			</button>
+			</Link>
 		</div>
 	);
 }
