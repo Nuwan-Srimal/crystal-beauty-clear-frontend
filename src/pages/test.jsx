@@ -1,29 +1,11 @@
-import { useState } from "react";
-import mediaUpload from "../utils/mediaUpload";
 
 
 export default function TestPage() {
-	const [file, setfile] = useState(null);    
-    
-    async function uploadImage(){
-		
-		const link = await mediaUpload(file)
-		console.log(link);
-
-		
-	}
-
-
-	return (
-		<div className="w-full h-full flex justify-center items-center">
-				<input type="file" onChange={
-					(e)=>{
-						setfile(e.target.files[0])
-					}
-				}/>
-				<button className="bg-blue-500 text-white p-2 rounded" onClick={uploadImage}>
-					Upload
-				</button>
+	
+	return(
+		<div className="w-[400px] h-[400px] bg-green-200 relative">
+			<div className="w-[200px] h-[200px] bg-red-400 z-[-50] absolute top-0 left-0 right-0 bottom-0 m-auto"></div>
+			<div className="w-[200px] h-[200px] bg-blue-400 z-[0] absolute top-0 left-0 right-0 bottom-0 m-auto"></div>
 		</div>
-	);
+	)
 }

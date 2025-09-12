@@ -1,15 +1,17 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { Loader } from "../components/loader";
 import ImageSlider from "../components/imageSlider";
+import { addToCart, loadCart } from "../utils/cart";
 
 export default function ProductOverview() {
   const params = useParams();
   //laoding, success, error
   const [status, setStatus] = useState("loading");
   const [product, setProduct] = useState(null);
+  const [cart, setCart] = useState([]);
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_API_URL + "/api/products/" + params.id)
@@ -29,7 +31,12 @@ export default function ProductOverview() {
       {status == "success" && (
         <div className="w-full h-full flex">
           <div className="w-[50%] h-full flex justify-center items-center">
-            <ImageSlider images={product.images} />
+            <ImageSlider images={[
+              ...product.images,
+              // Add additional static images here
+              "/public/bg.jpg",
+              "/public/logo.png"
+            ]} />
           </div>
           <div className="w-[50%] h-full flex flex-col  items-center gap-4 p-10">
             <span className="">{product.productID}</span>
@@ -63,16 +70,50 @@ export default function ProductOverview() {
               </p>
             )}
             <div className="w-full h-[40px] flex gap-4 mt-[60px]">
-              <button className="w-[50%] h-full bg-accent text-white font-semibold hover:bg-accent/80">
+              <button
+                className="w-[50%] h-full bg-accent text-white font-semibold hover:bg-accent/80"
+                onClick={() => {
+                  addToCart(product, 1);
+                  toast.success("Added to cart");
+                }}
+              >
                 Add to Cart
               </button>
-              <button className="w-[50%] h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white">
+              <Link
+                to="/checkout"
+                state={[
+                  {
+                    image: product.images[0],
+                    productID: product.productID,
+                    name: product.name,
+                    price: product.price,
+                    labelledPrice: product.labelledPrice,
+                    quantity: 1,
+                  },
+                ]}
+                className="w-[50%] text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
+              >
                 Buy Now
-              </button>
+              </Link>
             </div>
           </div>
         </div>
       )}
+      
+      {/* Additional Image Gallery - Always show */}
+      {status == "success" && (
+        <div className="w-full mt-10 p-10">
+          <h2 className="text-xl font-bold text-center mb-6">Related Images</h2>
+          <div className="flex justify-center">
+            <ImageSlider images={[
+              "/bg.jpg",
+              "/logo.png",
+              "/vite.svg"
+            ]} />
+          </div>
+        </div>
+      )}
+      
       {status == "error" && (
         <h1 className="text-red-500">Failed to load product details</h1>
       )}
