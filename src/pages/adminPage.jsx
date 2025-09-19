@@ -6,6 +6,7 @@ import { HiOutlineUsers } from "react-icons/hi";
 import AdminProductPage from "./admin/adminProductPage";
 import AddProductPage from "./admin/adminAddNewProduct";
 import UpdateProductPage from "./admin/adminUpdateProduct";
+import AdminOrdersPage from "./admin/adminOrdersPage";
 
 export default function AdminPage() {
 	return (
@@ -53,7 +54,7 @@ export default function AdminPage() {
                     <Routes path="/">
 						<Route path="/" element={<h1>Dashboard</h1>} />
 						<Route path="/products" element={<AdminProductPage/>} />
-						<Route path="/orders" element={<h1>Orders</h1>} />
+						<Route path="/orders" element={<AdminOrdersPage />} />
                         <Route path="/add-product" element={<AddProductPage />} />
 						<Route path="/update-product" element={<UpdateProductPage />} />
 					</Routes>

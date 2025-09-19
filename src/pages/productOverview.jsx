@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { Link, useParams } from "react-router-dom";
 import { Loader } from "../components/loader";
 import ImageSlider from "../components/imageSlider";
-import { addToCart, loadCart } from "../utils/cart";
+import { addToCart } from "../utils/cart";
 
 export default function ProductOverview() {
   const params = useParams();
