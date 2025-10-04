@@ -11,7 +11,6 @@ export default function ProductOverview() {
   //laoding, success, error
   const [status, setStatus] = useState("loading");
   const [product, setProduct] = useState(null);
-  const [cart, setCart] = useState([]);
   useEffect(() => {
     axios
       .get(import.meta.env.VITE_API_URL + "/api/products/" + params.id)
@@ -26,19 +25,17 @@ export default function ProductOverview() {
   }, []);
 
   return (
-    <div className="w-full h-[calc(100vh-100px)] text-secondary">
+    <div className="w-full  lg:h-[calc(100vh-100px)] text-secondary bg-primary">
       {status == "loading" && <Loader />}
       {status == "success" && (
-        <div className="w-full h-full flex">
-          <div className="w-[50%] h-full flex justify-center items-center">
-            <ImageSlider images={[
-              ...product.images,
-              // Add additional static images here
-              "/public/bg.jpg",
-              "/public/logo.png"
-            ]} />
+        <div className="w-full  flex flex-col lg:flex-row p-10">
+          <h1 className="text-2xl font-bold text-center lg:hidden">
+            {product.name}
+          </h1>
+          <div className=" w-full lg:w-[50%]  h-full flex justify-center items-center">
+            <ImageSlider images={product.images} />
           </div>
-          <div className="w-[50%] h-full flex flex-col  items-center gap-4 p-10">
+          <div className="w-full lg:w-[50%]   h-full flex flex-col bg-primary  items-center gap-4 p-10">
             <span className="">{product.productID}</span>
             <h1 className="text-2xl font-bold text-center">
               {product.name}
@@ -91,7 +88,7 @@ export default function ProductOverview() {
                     quantity: 1,
                   },
                 ]}
-                className="w-[50%] text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
+                className="w-[50%] flex justify-center items-center text-center h-full border border-accent text-accent font-semibold hover:bg-accent hover:text-white"
               >
                 Buy Now
               </Link>
@@ -99,21 +96,6 @@ export default function ProductOverview() {
           </div>
         </div>
       )}
-      
-      {/* Additional Image Gallery - Always show */}
-      {status == "success" && (
-        <div className="w-full mt-10 p-10">
-          <h2 className="text-xl font-bold text-center mb-6">Related Images</h2>
-          <div className="flex justify-center">
-            <ImageSlider images={[
-              "/bg.jpg",
-              "/logo.png",
-              "/vite.svg"
-            ]} />
-          </div>
-        </div>
-      )}
-      
       {status == "error" && (
         <h1 className="text-red-500">Failed to load product details</h1>
       )}

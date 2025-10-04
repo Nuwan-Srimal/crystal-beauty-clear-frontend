@@ -11,7 +11,7 @@ import { Toaster } from 'react-hot-toast';
 function App() {
 	return (
 		<BrowserRouter>
-			<div className="w-full h-[100vh] ">
+			<div className="w-full h-[100vh]">
 				<Toaster position="top-right"/>
 				<Routes path="/">
 					<Route path="/*" element={<HomePage/>}/>
