@@ -149,7 +149,7 @@ export default function UserData() {
               className="absolute right-0 top-12 z-50 w-56 origin-top-right rounded-xl bg-white p-1.5 shadow-lg ring-1 ring-secondary/10 animate-in fade-in zoom-in duration-100"
             >
               <MenuItem
-                onClick={() => (window.location.href = "/account")}
+                onClick={() => (window.location.href = "/settings")}
                 label="Account Settings"
               />
               <MenuItem
