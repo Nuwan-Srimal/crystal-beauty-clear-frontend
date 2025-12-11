@@ -5,7 +5,7 @@ export default function ProductCard(props) {
 	return (
 		<div className="w-[300px] h-[400px] shadow-2xl m-3 flex flex-col px-[10px]">
 			<img className="w-full h-[250px] object-cover" src={product.images[0]}/>
-			<h1 className="text-xl font-bold text-secondary">{product.name}</h1>
+			<h1 className="text-lg font-bold text-secondary">{product.name}</h1>
 			{
 				product.labelledPrice>product.price?
 				<div className="flex gap-3 items-center">
