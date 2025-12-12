@@ -16,7 +16,7 @@ export default function AboutPage() {
       <div className="grid md:grid-cols-2 gap-10 items-center">
         <div className="w-full">
           <img
-            src="https://www.dbhealthcare.lk/wp-content/uploads/2025/03/Cosmetology-4-2-1.png"
+            src="/about.png"
             alt="About Crystal Beauty Clear"
             className="w-full h-[400px] rounded-xl shadow-lg object-cover"
             loading="lazy"
