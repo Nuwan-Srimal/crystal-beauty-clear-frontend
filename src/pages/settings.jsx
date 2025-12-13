@@ -84,20 +84,23 @@ export default function UserSettings() {
   return (
     <div className="min-h-screen bg-[url('/bg.jpg')] bg-cover bg-center bg-no-repeat">
       {/*mobile top bar*/}
-      <div className="lg:hidden flex items-center gap-3 px-4 py-4 bg-primary/80 backdrop-blur-md shadow">
+      <div className="flex items-center gap-3 px-4 py-4 bg-primary/80 backdrop-blur-md shadow">
         <button
           onClick={() => {
             const lastPage = localStorage.getItem("lastVisitedPage");
             navigate(lastPage || "/");
           }}
+          className="flex items-center justify-center w-10 h-10 rounded-full
+               text-secondary hover:bg-secondary/10 transition"
+          aria-label="Go back"
         >
-          <MdArrowBack />
+          <MdArrowBack className="text-2xl" />
         </button>
+
         <h1 className="text-lg font-semibold text-secondary">User Settings</h1>
       </div>
 
       <div className="px-4 py-6 flex flex-col lg:flex-row gap-6 justify-center">
-
         <div className="w-full lg:w-[40%] backdrop-blur-2xl rounded-2xl p-6 bg-primary/80 shadow-xl ring-1 ring-secondary/10">
           <h2 className="hidden lg:block text-2xl font-bold mb-6 text-center text-secondary">
             User Settings
