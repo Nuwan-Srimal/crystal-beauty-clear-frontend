@@ -9,157 +9,172 @@ import AboutPage from "./about";
 import ContactPage from "./contact";
 
 export default function HomePage() {
-    return (
-        <div className="w-full min-h-screen bg-primary flex flex-col">
-            <Header />
-            <div className="w-full flex-1">
-                <Routes path="/">
-                    <Route
-                        path="/"
-                        element={
-                            <div className="w-full">
-                                <section className="w-full px-4 py-16 md:py-24">
-                                    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                                        <div className="space-y-6">
-                                            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-secondary leading-tight">
-                                                Glow Inside Out
-                                                <span className="block text-accent mt-2 text-3xl md:text-4xl font-semibold">
-                                                    Curated Skincare & Beauty
-                                                </span>
-                                            </h1>
-                                            <p className="text-secondary/70 text-lg md:text-xl max-w-2xl">
-                                                Handpicked favourites, dermatologist-approved formulations and islandwide delivery.
-                                                Discover clean, effective products that make self-care feel effortless.
-                                            </p>
-                                            <div className="flex flex-wrap gap-4 mt-4">
-                                                <Link to="/products" className="inline-block">
-                                                    <button className="px-8 py-4 bg-accent text-white rounded-lg font-semibold hover:opacity-95 transition-all shadow-md">
-                                                        Shop Now
-                                                    </button>
-                                                </Link>
+  return (
+    <div className="w-full min-h-screen bg-primary flex flex-col">
+      <Header />
 
-                                                <Link to="/about" className="inline-block">
-                                                    <button className="px-6 py-4 border-2 border-secondary text-secondary rounded-lg font-semibold hover:bg-secondary hover:text-white transition-all">
-                                                        Learn More
-                                                    </button>
-                                                </Link>
-                                            </div>
-                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-                                                <div className="bg-white p-6 rounded-xl shadow-sm">
-                                                    <h3 className="font-bold text-secondary mb-1">Premium Care</h3>
-                                                    <p className="text-sm text-secondary/60">Dermatologist-approved</p>
-                                                </div>
-                                                <div className="bg-white p-6 rounded-xl shadow-sm">
-                                                    <h3 className="font-bold text-secondary mb-1">Fast Delivery</h3>
-                                                    <p className="text-sm text-secondary/60">Islandwide, tracked</p>
-                                                </div>
-                                                <div className="bg-white p-6 rounded-xl shadow-sm">
-                                                    <h3 className="font-bold text-secondary mb-1">Secure Payments</h3>
-                                                    <p className="text-sm text-secondary/60">Multiple options</p>
-                                                </div>
-                                            </div>
-                                        </div>
+      <div className="w-full flex-1">
+        <Routes path="/">
+          <Route
+            path="/"
+            element={
+              <div className="w-full">
 
-                                        {/* RIGHT IMAGE */}
-                                        <div className="relative flex items-center justify-center">
-                                            <div className="bg-rose-200 rounded-3xl shadow-2xl p-4 w-full h-full max-w-[820px]">
-                                                <div className="w-[800px] h-[420px] rounded-2xl overflow-hidden flex items-center justify-center bg-white/50">
-                                                    <img
-                                                        src={"/home.jpg"}
-                                                        alt="Crystal Beauty hero"
-                                                        className="w-full h-full object-cover"
-                                                        loading="lazy"
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
+                <section className="w-full px-4 py-12 sm:py-16 md:py-24">
+                  <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div className="space-y-6">
+                      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-secondary leading-tight">
+                        Glow Inside Out
+                        <span className="block text-accent mt-2 text-2xl sm:text-3xl md:text-4xl font-semibold">
+                          Curated Skincare & Beauty
+                        </span>
+                      </h1>
 
-                                {/* EXPLORE BY CATEGORY */}
-                                <section className="w-full px-4 py-16 bg-white">
-                                    <div className="max-w-7xl mx-auto">
-                                        <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-8">
-                                            Explore by category
-                                        </h2>
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                            <Link to="/products" className="block">
-                                                <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all duration-300 border border-accent/10 h-full">
-                                                    <h3 className="text-2xl font-bold text-secondary mb-2">Skincare</h3>
-                                                    <p className="text-secondary/60">Serums, moisturizers & cleansers</p>
-                                                </div>
-                                            </Link>
+                      <p className="text-secondary/70 text-base sm:text-lg md:text-xl max-w-2xl">
+                        Handpicked favourites, dermatologist-approved formulations and islandwide delivery.
+                        Discover clean, effective products that make self-care feel effortless.
+                      </p>
 
-                                            <Link to="/products" className="block">
-                                                <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all duration-300 border border-accent/10 h-full">
-                                                    <h3 className="text-2xl font-bold text-secondary mb-2">Makeup</h3>
-                                                    <p className="text-secondary/60">Lipsticks, foundations & more</p>
-                                                </div>
-                                            </Link>
+                      <div className="flex flex-col sm:flex-row gap-4 mt-4">
+                        <Link to="/products" className="w-full sm:w-auto">
+                          <button className="w-full px-8 py-4 bg-accent text-white rounded-lg font-semibold hover:opacity-95 transition-all shadow-md">
+                            Shop Now
+                          </button>
+                        </Link>
 
-                                            <Link to="/products" className="block">
-                                                <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all duration-300 border border-accent/10 h-full">
-                                                    <h3 className="text-2xl font-bold text-secondary mb-2">Body</h3>
-                                                    <p className="text-secondary/60">Lotions & self-care</p>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </section>
+                        <Link to="/about" className="w-full sm:w-auto">
+                          <button className="w-full px-6 py-4 border-2 border-secondary text-secondary rounded-lg font-semibold hover:bg-secondary hover:text-white transition-all">
+                            Learn More
+                          </button>
+                        </Link>
+                      </div>
 
-                                {/* WHY CHOOSE US SECTION */}
-                                <section className="w-full px-4 py-16">
-                                    <div className="max-w-7xl mx-auto">
-                                        <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4 text-center">
-                                            Why Choose Crystal Beauty Clear
-                                        </h2>
-                                        <p className="text-secondary/70 text-center mb-12 max-w-2xl mx-auto">
-                                            Experience the difference with our carefully curated selection of premium beauty products.
-                                        </p>
+                      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+                        <div className="bg-white p-6 rounded-xl shadow-sm">
+                          <h3 className="font-bold text-secondary mb-1">Premium Care</h3>
+                          <p className="text-sm text-secondary/60">Dermatologist-approved</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl shadow-sm">
+                          <h3 className="font-bold text-secondary mb-1">Fast Delivery</h3>
+                          <p className="text-sm text-secondary/60">Islandwide, tracked</p>
+                        </div>
+                        <div className="bg-white p-6 rounded-xl shadow-sm">
+                          <h3 className="font-bold text-secondary mb-1">Secure Payments</h3>
+                          <p className="text-sm text-secondary/60">Multiple options</p>
+                        </div>
+                      </div>
+                    </div>
 
-                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                                            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-                                                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                                    <span className="text-3xl">🌟</span>
-                                                </div>
-                                                <h3 className="text-xl font-bold text-secondary mb-2">100% Authentic</h3>
-                                                <p className="text-secondary/70">All products sourced directly from authorized distributors</p>
-                                            </div>
+                    <div className="relative flex items-center justify-center">
+                      <div className="bg-rose-200 rounded-3xl shadow-2xl p-4 w-full max-w-lg md:max-w-xl lg:max-w-2xl">
+                        <div className="w-full h-[260px] sm:h-[320px] md:h-[420px] rounded-2xl overflow-hidden bg-white/50">
+                          <img
+                            src={"/home.jpg"}
+                            alt="Crystal Beauty hero"
+                            className="w-full h-full object-cover"
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
 
-                                            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-                                                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                                    <span className="text-3xl">🚚</span>
-                                                </div>
-                                                <h3 className="text-xl font-bold text-secondary mb-2">Fast Delivery</h3>
-                                                <p className="text-secondary/70">Island-wide delivery with real-time tracking</p>
-                                            </div>
+                <section className="w-full px-4 py-16 bg-white">
+                  <div className="max-w-7xl mx-auto">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-8">
+                      Explore by category
+                    </h2>
 
-                                            <div className="text-center p-6 bg-white rounded-xl shadow-sm">
-                                                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
-                                                    <span className="text-3xl">💝</span>
-                                                </div>
-                                                <h3 className="text-xl font-bold text-secondary mb-2">Expert Care</h3>
-                                                <p className="text-secondary/70">Dermatologist-approved formulations for all skin types</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </section>
-                            </div>
-                        }
-                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                      <Link to="/products">
+                        <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all border border-accent/10 h-full">
+                          <h3 className="text-2xl font-bold text-secondary mb-2">Skincare</h3>
+                          <p className="text-secondary/60">Serums, moisturizers & cleansers</p>
+                        </div>
+                      </Link>
 
-                    <Route path="/products" element={<ProductPage />} />
-                    <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/about" element={<AboutPage />} />
-                    <Route path="/overview/:id" element={<ProductOverview />} />
-                    <Route path="/cart" element={<CartPage />} />
-                    <Route path="/checkout" element={<CheckoutPage />} />
-                    <Route path="/*" element={<div className="max-w-7xl mx-auto px-4 py-12"><h1 className="text-red-500 text-3xl">404 Not Found</h1></div>} />
-                </Routes>
-            </div>
+                      <Link to="/products">
+                        <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all border border-accent/10 h-full">
+                          <h3 className="text-2xl font-bold text-secondary mb-2">Makeup</h3>
+                          <p className="text-secondary/60">Lipsticks, foundations & more</p>
+                        </div>
+                      </Link>
 
-            {/* FOOTER */}
-            <Footer />
-        </div>
-    );
+                      <Link to="/products">
+                        <div className="bg-primary p-8 rounded-2xl hover:shadow-lg transition-all border border-accent/10 h-full">
+                          <h3 className="text-2xl font-bold text-secondary mb-2">Body</h3>
+                          <p className="text-secondary/60">Lotions & self-care</p>
+                        </div>
+                      </Link>
+                    </div>
+                  </div>
+                </section>
+
+                <section className="w-full px-4 py-16">
+                  <div className="max-w-7xl mx-auto">
+                    <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-secondary mb-4 text-center">
+                      Why Choose Crystal Beauty Clear
+                    </h2>
+
+                    <p className="text-secondary/70 text-center mb-12 max-w-2xl mx-auto">
+                      Experience the difference with our carefully curated selection of premium beauty products.
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+                      <div className="text-center p-6 bg-white rounded-xl shadow-sm">
+                        <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-3xl">🌟</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-secondary mb-2">100% Authentic</h3>
+                        <p className="text-secondary/70">
+                          All products sourced directly from authorized distributors
+                        </p>
+                      </div>
+
+                      <div className="text-center p-6 bg-white rounded-xl shadow-sm">
+                        <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-3xl">🚚</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-secondary mb-2">Fast Delivery</h3>
+                        <p className="text-secondary/70">
+                          Island-wide delivery with real-time tracking
+                        </p>
+                      </div>
+
+                      <div className="text-center p-6 bg-white rounded-xl shadow-sm">
+                        <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                          <span className="text-3xl">💝</span>
+                        </div>
+                        <h3 className="text-xl font-bold text-secondary mb-2">Expert Care</h3>
+                        <p className="text-secondary/70">
+                          Dermatologist-approved formulations for all skin types
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            }
+          />
+
+          <Route path="/products" element={<ProductPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/overview/:id" element={<ProductOverview />} />
+          <Route path="/cart" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route
+            path="/*"
+            element={
+              <div className="max-w-7xl mx-auto px-4 py-12">
+                <h1 className="text-red-500 text-3xl">404 Not Found</h1>
+              </div>
+            }
+          />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
+  );
 }
