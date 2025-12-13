@@ -32,7 +32,7 @@ export default function Footer() {
                         <ul className="space-y-2 text-sm text-white/70">
                             <li>📧 info@crystalbeauty.lk</li>
                             <li>📞 +94 11 234 5678</li>
-                            <li>📍 Colombo, Sri Lanka</li>
+                            <li>📍 Galle, Sri Lanka</li>
                         </ul>
                     </div>
                 </div>
