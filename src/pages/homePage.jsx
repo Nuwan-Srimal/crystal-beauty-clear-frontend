@@ -32,7 +32,7 @@ export default function HomePage() {
 
                       <p className="text-secondary/70 text-base sm:text-lg md:text-xl max-w-2xl">
                         Handpicked favourites, dermatologist-approved formulations and islandwide delivery.
-                        Discover clean, effective products that make self-care feel effortless.
+                        Discover clean, effective products that make self care feel effortless.
                       </p>
 
                       <div className="flex flex-col sm:flex-row gap-4 mt-4">
@@ -66,14 +66,12 @@ export default function HomePage() {
                     </div>
 
                     <div className="relative flex items-center justify-center">
-                      <div className="bg-rose-200 rounded-3xl shadow-2xl p-4 w-full max-w-lg md:max-w-xl lg:max-w-2xl">
-                        <div className="w-full h-[260px] sm:h-[320px] md:h-[420px] rounded-2xl overflow-hidden bg-white/50">
-                          <img
-                            src={"/home.jpg"}
-                            alt="Crystal Beauty hero"
-                            className="w-full h-full object-cover"
-                            loading="lazy"
-                          />
+                      <div className="relative w-full max-w-lg md:max-w-xl lg:max-w-2xl p-[1px] rounded-[28px] shadow-[0_0_40px_rgba(236,72,153,0.65)]">
+                        <div className="bg-rose-100 rounded-[25px] p-3 w-full shadow-[inset_0_0_20px_rgba(255,255,255,0.6)]">
+                          <div className="relative w-full h-[260px] sm:h-[320px] md:h-[420px] rounded-2xl overflow-hidden ring-4 ring-pink-300/70 shadow-[0_0_30px_rgba(236,72,153,0.55)]">
+                            <img src={"/home.jpg"} alt="Crystal Beauty hero" className="w-full h-full object-cover scale-105 transition-transform duration-1000 hover:scale-100" loading="lazy" />
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-white/25 via-transparent to-transparent" />
+                          </div>
                         </div>
                       </div>
                     </div>
