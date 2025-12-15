@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { BsFacebook } from "react-icons/bs";
+import { BsInstagram } from "react-icons/bs";
+
 const Mail = ({ size = 16 }) => (
   <span style={{ fontSize: size, lineHeight: 1 }}>✉️</span>
 );
@@ -104,20 +107,20 @@ export default function ContactPage() {
             </div>
           </div>
 
-          <div className="mt-6 flex items-center justify-between font-serif shadow-xl p-4 bg-primary to-black rounded-lg">
+          <div className="mt-6 flex items-center justify-between font-serif shadow-xl p-5 bg-primary to-black rounded-lg">
             <div className="text-sm text-accent">Follow us</div>
-            <div className="flex gap-3">
+            <div className="flex gap-8">
               <a
                 className="text-gray-300 hover:text-gray-700"
                 aria-label="Facebook"
               >
-                <a href="https://facebook.com" className="text-accent">Facebook</a>
+                <a href="https://facebook.com" className="text-accent"><BsFacebook /></a>
               </a>
               <a
                 className="text-gray-300 hover:text-gray-700"
                 aria-label="Instagram"
               >
-                <a href="https://instagram.com" className="text-accent">Instagram</a>
+                <a href="https://instagram.com" className="text-accent"><BsInstagram /></a>
               </a>
             </div>
           </div>

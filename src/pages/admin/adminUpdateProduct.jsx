@@ -5,7 +5,9 @@ import toast from "react-hot-toast";
 import axios from "axios";
 
 export default function UpdateProductPage() {
-    const location = useLocation()
+	const location = useLocation();
+	const navigate = useNavigate();
+
 	const [productId, setProductId] = useState(location.state.productID);
 	const [name, setName] = useState(location.state.name);
 	const [altNames, setAltNames] = useState(location.state.altNames.join(","));
@@ -15,7 +17,6 @@ export default function UpdateProductPage() {
 	const [labelledPrice, setLabelledPrice] = useState(location.state.labelledPrice);
 	const [category, setCategory] = useState(location.state.category);
 	const [stock, setStock] = useState(location.state.stock);
-	const navigate = useNavigate();
 
 	async function updateProduct() {
 		const token = localStorage.getItem("token");
@@ -28,221 +29,197 @@ export default function UpdateProductPage() {
 		for (let i = 0; i < images.length; i++) {
 			promises[i] = mediaUpload(images[i]);
 		}
-		//
+
 		try {
 			let urls = await Promise.all(promises);
-
-            if(urls.length == 0 ){
-                urls = location.state.images
-            }
-
-			const alternativeNames = altNames.split(",")
-
-			const product = {
-				productID : productId,
-				name : name,
-				altNames : alternativeNames,
-				description : description,
-				images : urls,
-				price : price,
-				labelledPrice : labelledPrice,
-				category : category,
-				stock : stock
+			if (urls.length === 0) {
+				urls = location.state.images;
 			}
 
-			await axios.put(import.meta.env.VITE_API_URL+"/api/products/"+productId,product,{
-				headers:{
-					Authorization : "Bearer "+token
+			const alternativeNames = altNames.split(",");
+
+			const product = {
+				productID: productId,
+				name,
+				altNames: alternativeNames,
+				description,
+				images: urls,
+				price,
+				labelledPrice,
+				category,
+				stock,
+			};
+
+			await axios.put(
+				import.meta.env.VITE_API_URL + "/api/products/" + productId,
+				product,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
 				}
-			})
+			);
+
 			toast.success("Product updated successfully");
 			navigate("/admin/products");
-
 		} catch {
 			toast.error("An error occurred");
 		}
-
 	}
 
 	return (
-		<div className="min-h-screen w-full bg-primary/70 flex items-center justify-center p-6">
-			<div className="w-full max-w-3xl rounded-2xl border border-accent/30 bg-white shadow-xl">
-				{/* Header */}
-				<div className="flex items-center justify-between gap-3 border-b border-accent/20 px-6 py-5">
-					<div>
-						<h1 className="text-xl font-semibold text-secondary">
-							Update Product
-						</h1>
-						<p className="text-sm text-secondary/70">
-							Create a new SKU with clean metadata.
-						</p>
+		<div className="w-full h-full flex justify-center overflow-y-auto">
+			<div className="w-full max-w-4xl py-6">
+
+				<div className="rounded-2xl bg-white shadow-lg border border-secondary/10 overflow-hidden">
+
+					<div className="flex items-center justify-between px-6 py-5 border-b border-secondary/10">
+						<div>
+							<h1 className="text-xl font-semibold text-secondary">
+								Update Product
+							</h1>
+							<p className="text-sm text-secondary/60">
+								Update product details and inventory
+							</p>
+						</div>
 					</div>
-					<div className="h-10 w-10 rounded-full bg-accent/15 ring-1 ring-accent/30" />
-				</div>
 
-				{/* Form grid */}
-				<div className="px-6 py-6">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-						{/* Product ID */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Product ID
-							</span>
-							<input
-                                disabled
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={productId}
-								onChange={(e) => {
-									setProductId(e.target.value);
-								}}
-								placeholder="e.g., DS-CR-001"
-							/>
-						</label>
+					<div className="px-6 py-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
 
-						{/* Name */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Name</span>
-							<input
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={name}
-								onChange={(e) => {
-									setName(e.target.value);
-								}}
-								placeholder="e.g., Diamond Shine Night Cream"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Product ID
+								</label>
+								<input
+									disabled
+									value={productId}
+									onChange={(e) => setProductId(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 bg-secondary/5 px-3 text-secondary"
+								/>
+							</div>
 
-						{/* Alt Names */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">
-								Alternative Names
-							</span>
-							<input
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={altNames}
-								onChange={(e) => {
-									setAltNames(e.target.value);
-								}}
-								placeholder="Comma-separated; e.g., night cream, hydrating cream"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Name
+								</label>
+								<input
+									value={name}
+									onChange={(e) => setName(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Description */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">
-								Description
-							</span>
-							<textarea
-								className="min-h-[120px] rounded-xl border border-secondary/20 bg-white px-3 py-2 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={description}
-								onChange={(e) => {
-									setDescription(e.target.value);
-								}}
-								placeholder="Brief product overview, benefits, and usage."
-							/>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Alternative Names
+								</label>
+								<input
+									value={altNames}
+									onChange={(e) => setAltNames(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Images */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">Images</span>
-							<input
-								type="file"
-								onChange={(e) => {
-									setImages(e.target.files);
-								}}
-								multiple
-								className="block w-full cursor-pointer rounded-xl border border-secondary/20 bg-white file:mr-4 file:rounded-lg file:border-0 file:bg-accent/10 file:px-4 file:py-2 file:text-secondary file:font-medium hover:file:bg-accent/20 transition"
-							/>
-							<span className="text-xs text-secondary/60">
-								PNG/JPG recommended. Multiple files supported.
-							</span>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Description
+								</label>
+								<textarea
+									value={description}
+									onChange={(e) => setDescription(e.target.value)}
+									className="mt-1 min-h-[120px] w-full rounded-xl border border-secondary/20 px-3 py-2 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Price */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Price</span>
-							<input
-								type="number"
-								value={price}
-								onChange={(e) => {
-									setPrice(e.target.value);
-								}}
-								placeholder="0.00"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Images
+								</label>
+								<input
+									type="file"
+									multiple
+									onChange={(e) => setImages(e.target.files)}
+									className="mt-2 block w-full rounded-xl border border-secondary/20 file:mr-4 file:rounded-lg file:border-0 file:bg-accent/10 file:px-4 file:py-2"
+								/>
+								<p className="mt-1 text-xs text-secondary/60">
+									Leave empty to keep existing images
+								</p>
+							</div>
 
-						{/* Labelled Price */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Labelled Price
-							</span>
-							<input
-								type="number"
-								value={labelledPrice}
-								onChange={(e) => {
-									setLabelledPrice(e.target.value);
-								}}
-								placeholder="MRP / Sticker Price"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Price
+								</label>
+								<input
+									type="number"
+									value={price}
+									onChange={(e) => setPrice(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
 
-						{/* Category */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Category
-							</span>
-							<select
-								value={category}
-								onChange={(e) => {
-									setCategory(e.target.value);
-								}}
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Labelled Price
+								</label>
+								<input
+									type="number"
+									value={labelledPrice}
+									onChange={(e) => setLabelledPrice(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
+
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Category
+								</label>
+								<select
+									value={category}
+									onChange={(e) => setCategory(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								>
+									<option value="cream">Cream</option>
+									<option value="lotion">Lotion</option>
+									<option value="serum">Serum</option>
+								</select>
+							</div>
+
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Stock
+								</label>
+								<input
+									type="number"
+									value={stock}
+									onChange={(e) => setStock(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
+						</div>
+					</div>
+
+					<div className="flex items-center justify-between px-6 py-4 border-t border-secondary/10">
+						<span className="text-xs text-secondary/60">
+							Ensure prices and stock are accurate before saving.
+						</span>
+						<div className="flex gap-3">
+							<button
+								onClick={() => navigate("/admin/products")}
+								className="h-10 w-[110px] rounded-xl border border-secondary/20 hover:bg-secondary/5"
 							>
-								<option value="cream">Cream</option>
-								<option value="lotion">Lotion</option>
-								<option value="serum">Serum</option>
-							</select>
-						</label>
-
-						{/* Stock */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Stock</span>
-							<input
-								type="number"
-								value={stock}
-								onChange={(e) => {
-									setStock(e.target.value);
-								}}
-								placeholder="0"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+								Cancel
+							</button>
+							<button
+								onClick={updateProduct}
+								className="h-10 w-[110px] rounded-xl bg-accent text-white hover:bg-accent/90"
+							>
+								Save
+							</button>
+						</div>
 					</div>
-				</div>
 
-				{/* Footer */}
-				<div className="flex items-center justify-between gap-3 border-t border-accent/20 px-6 py-4">
-					<span className="text-xs text-secondary/60">
-						Tip: Maintain consistent naming for SKU discoverability.
-					</span>
-					<div className="flex items-center gap-2">
-						<button
-							onClick={() => {
-								navigate("/admin/products");
-							}}
-							className="rounded-full bg-[#FF000050] px-3 h-[40px] w-[100px] py-1 text-md flex justify-center items-center font-medium text-secondary ring-1 ring-accent/30 hover:border-red-500 hover:border-[2px]"
-						>
-							Cancel
-						</button>
-						<button
-							onClick={updateProduct}
-							className="rounded-full bg-accent/15 px-3 h-[40px] w-[100px] py-1 text-md flex justify-center items-center font-medium text-secondary ring-1 ring-accent/30 hover:border-accent hover:border-[2px]"
-						>
-							Submit
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>

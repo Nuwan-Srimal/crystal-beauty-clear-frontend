@@ -5,10 +5,10 @@ export default function ProductCard(props) {
 
   return (
     <div
-      className="w-full max-w-sm mx-auto bg-white rounded-2xl shadow-xloverflow-hidden flex flex-col transition-transform md:hover:scale-[1.02]"
+      className="w-full max-w-sm mx-auto bg-white rounded-2xl border-2 shadow-[0_0_10px_rgba(236,72,153,0.2)] border-pink-100 shadow-xloverflow-hidden flex flex-col transition-transform md:hover:scale-[1.02]"
     >
       <div className="w-full h-[200px] sm:h-[220px] md:h-[250px] overflow-hidden">
-        <img className="w-full h-full object-cover transition-transform duration-300 md:hover:scale-105" src={product.images[0]} alt={product.name} loading="lazy" />
+        <img className="w-full h-full object-cover transition-transform duration-300 md:hover:scale-105 rounded-2xl p-[5px]" src={product.images[0]} alt={product.name} loading="lazy" />
       </div>
 
       <div className="px-4 py-4 flex-1 flex flex-col justify-between gap-3">
