@@ -5,17 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader";
 import { MdOutlineAdminPanelSettings, MdVerified } from "react-icons/md";
 
-function UserBlockConfirm(props) {
-  const email = props.user.email;
-  const close = props.close;
-  const refresh = props.refresh;
+
+function UserBlockConfirm({ user, close, refresh }) {
+  const email = user.email;
 
   function blockUser() {
     const token = localStorage.getItem("token");
     axios
       .put(
         import.meta.env.VITE_API_URL + "/api/users/block/" + email,
-        { isBlock: !props.user.isBlock },
+        { isBlock: !user.isBlock },
         { headers: { Authorization: `Bearer ${token}` } }
       )
       .then(() => {
@@ -27,8 +26,8 @@ function UserBlockConfirm(props) {
   }
 
   return (
-    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40">
-      <div className="w-[420px] rounded-2xl bg-white p-6 shadow-xl">
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 px-3">
+      <div className="w-full max-w-[420px] rounded-2xl bg-white p-6 shadow-xl">
         <h2 className="text-lg font-semibold mb-4 text-secondary">
           Confirm Action
         </h2>
@@ -36,7 +35,7 @@ function UserBlockConfirm(props) {
         <p className="text-sm text-secondary/70 mb-6 text-center">
           Are you sure you want to{" "}
           <span className="font-semibold">
-            {props.user.isBlock ? "unblock" : "block"}
+            {user.isBlock ? "unblock" : "block"}
           </span>{" "}
           this user?
           <br />
@@ -68,7 +67,6 @@ export default function AdminUsersPage() {
   const [isBlockConfirmVisible, setIsBlockConfirmVisible] = useState(false);
   const [userToBlock, setUserToBlock] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-
   const [search, setSearch] = useState("");
 
   const navigate = useNavigate();
@@ -76,17 +74,18 @@ export default function AdminUsersPage() {
   useEffect(() => {
     if (isLoading) {
       const token = localStorage.getItem("token");
-      if (token == null) {
+      if (!token) {
         toast.error("Please login to access admin panel");
         navigate("/login");
         return;
       }
+
       axios
         .get(import.meta.env.VITE_API_URL + "/api/users/all-users", {
           headers: { Authorization: `Bearer ${token}` },
         })
-        .then((response) => {
-          setUsers(response.data);
+        .then((res) => {
+          setUsers(res.data);
           setIsLoading(false);
         });
     }
@@ -106,6 +105,7 @@ export default function AdminUsersPage() {
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden">
+
       {isBlockConfirmVisible && (
         <UserBlockConfirm
           user={userToBlock}
@@ -114,10 +114,13 @@ export default function AdminUsersPage() {
         />
       )}
 
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-4">
+      {/* HEADER */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
         <div>
-          <h1 className="text-2xl font-semibold text-secondary">Users</h1>
-          <p className="text-sm text-secondary/60">
+          <h1 className="text-xl sm:text-2xl font-semibold text-secondary">
+            Users
+          </h1>
+          <p className="text-xs sm:text-sm text-secondary/60">
             Manage platform users and roles
           </p>
         </div>
@@ -127,40 +130,92 @@ export default function AdminUsersPage() {
           placeholder="Search users..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="w-full md:w-[320px] rounded-xl border-2 border-secondary/20 bg-white px-4 py-2 text-sm text-secondary placeholder:text-secondary/50 focus:outline-none focus:ring-0 focus:border-accent"
+          className="w-full sm:w-[320px] rounded-xl border border-secondary/20 bg-white px-4 py-2 text-sm focus:border-accent focus:outline-none"
         />
       </div>
 
-      <div className="mb-2 text-sm text-secondary/60">
+      <div className="mb-2 text-xs sm:text-sm text-secondary/60">
         Showing {filteredUsers.length} of {users.length} users
       </div>
 
-      <div className="flex-1 rounded-2xl bg-white shadow border border-secondary/10 overflow-hidden">
-        <div className="h-full overflow-x-auto overflow-y-auto">
+      <div className="sm:hidden space-y-3 overflow-y-auto">
+        {isLoading ? (
+          <div className="flex h-full items-center justify-center">
+            <Loader />
+          </div>
+        ) : (
+          filteredUsers.map((user) => (
+            <div
+              key={user.email}
+              className={`rounded-2xl bg-white shadow border border-secondary/10 p-4 flex gap-4 ${
+                user.isBlock ? "opacity-60" : ""
+              }`}
+            >
+              <img
+                src={user.image}
+                referrerPolicy="no-referrer"
+                alt={user.firstName}
+                className={`h-14 w-14 rounded-full object-cover border-4 ${
+                  user.isBlock ? "border-red-500" : "border-green-500"
+                }`}
+              />
+
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-semibold text-secondary">
+                    {user.firstName} {user.lastName}
+                  </h3>
+                  {user.isEmailVerified && (
+                    <MdVerified className="text-blue-500" />
+                  )}
+                </div>
+
+                <p className="text-xs text-secondary/60 break-all">
+                  {user.email}
+                </p>
+
+                <div className="flex items-center gap-2 mt-2 text-sm">
+                  {user.role === "admin" && (
+                    <MdOutlineAdminPanelSettings className="text-accent" />
+                  )}
+                  <span className="capitalize">{user.role}</span>
+                </div>
+
+                <button
+                  onClick={() => {
+                    setUserToBlock(user);
+                    setIsBlockConfirmVisible(true);
+                  }}
+                  className={`mt-3 rounded-full px-4 py-1.5 text-xs font-semibold text-white ${
+                    user.isBlock
+                      ? "bg-green-600 hover:bg-green-700"
+                      : "bg-red-600 hover:bg-red-700"
+                  }`}
+                >
+                  {user.isBlock ? "Unblock User" : "Block User"}
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
+      <div className="hidden sm:flex flex-1 rounded-2xl bg-white shadow border border-secondary/10 overflow-hidden">
+        <div className="w-full overflow-x-auto overflow-y-auto">
           {isLoading ? (
             <div className="flex h-full items-center justify-center">
               <Loader />
             </div>
           ) : (
-            <table className="w-full min-w-[1000px] text-left text-sm">
-              <thead className="sticky top-0 z-10 bg-secondary text-white">
+            <table className="w-full min-w-[900px] text-left text-sm">
+              <thead className="sticky top-0 bg-secondary text-white">
                 <tr>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase">
-                    Image
-                  </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase">
-                    Email
-                  </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase">
-                    First Name
-                  </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase">
-                    Last Name
-                  </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase">
-                    Role
-                  </th>
-                  <th className="px-4 py-3 text-xs font-semibold uppercase text-center">
+                  <th className="px-4 py-3 text-xs uppercase">Image</th>
+                  <th className="px-4 py-3 text-xs uppercase">Email</th>
+                  <th className="px-4 py-3 text-xs uppercase">First Name</th>
+                  <th className="px-4 py-3 text-xs uppercase">Last Name</th>
+                  <th className="px-4 py-3 text-xs uppercase">Role</th>
+                  <th className="px-4 py-3 text-xs uppercase text-center">
                     Actions
                   </th>
                 </tr>
@@ -170,7 +225,7 @@ export default function AdminUsersPage() {
                 {filteredUsers.map((user) => (
                   <tr
                     key={user.email}
-                    className={`transition hover:bg-accent/5 ${
+                    className={`hover:bg-accent/5 ${
                       user.isBlock ? "opacity-60" : ""
                     }`}
                   >
@@ -180,20 +235,21 @@ export default function AdminUsersPage() {
                         referrerPolicy="no-referrer"
                         alt={user.firstName}
                         className={`h-14 w-14 rounded-full object-cover border-4 ${
-                          user.isBlock ? "border-red-500" : "border-green-500"
+                          user.isBlock
+                            ? "border-red-500"
+                            : "border-green-500"
                         }`}
                       />
                     </td>
 
-                    <td className="px-4 py-3 font-mono text-secondary/80 flex items-center gap-2">
+                    <td className="px-4 py-3 font-mono flex items-center gap-2">
                       {user.email}
                       {user.isEmailVerified && (
                         <MdVerified className="text-blue-500" />
                       )}
                     </td>
 
-                    <td className="px-4 py-3 font-medium">{user.firstName}</td>
-
+                    <td className="px-4 py-3">{user.firstName}</td>
                     <td className="px-4 py-3">{user.lastName}</td>
 
                     <td className="px-4 py-3">
@@ -211,7 +267,7 @@ export default function AdminUsersPage() {
                           setUserToBlock(user);
                           setIsBlockConfirmVisible(true);
                         }}
-                        className={`rounded-full px-4 py-1.5 text-xs font-semibold text-white transition ${
+                        className={`rounded-full px-4 py-1.5 text-xs font-semibold text-white ${
                           user.isBlock
                             ? "bg-green-600 hover:bg-green-700"
                             : "bg-red-600 hover:bg-red-700"
@@ -225,10 +281,7 @@ export default function AdminUsersPage() {
 
                 {filteredUsers.length === 0 && (
                   <tr>
-                    <td
-                      colSpan={6}
-                      className="py-12 text-center text-secondary/60"
-                    >
+                    <td colSpan={6} className="py-12 text-center text-secondary/60">
                       No matching users found.
                     </td>
                   </tr>
