@@ -6,8 +6,6 @@ import { FaChartLine } from "react-icons/fa";
 export default function AdminDashboard() {
   return (
     <div className="w-full h-full space-y-8 bg-white rounded-2xl p-4 sm:p-5 overflow-y-auto">
-
-
       {/* Header */}
       <div className="flex flex-col gap-1">
         <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-secondary">
@@ -48,22 +46,22 @@ export default function AdminDashboard() {
 
       {/* Main Section */}
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-
         {/* Analytics */}
         <div className="xl:col-span-2 bg-white rounded-2xl shadow-lg flex flex-col p-4 sm:p-6">
           <div className="flex items-center justify-between mb-4 sm:mb-6">
             <h2 className="text-base sm:text-lg font-semibold text-secondary">
               Analytics Overview
             </h2>
-            <span className="text-xs text-secondary/50">
-              Last 30 days
-            </span>
+            <span className="text-xs text-secondary/50">Last 30 days</span>
           </div>
 
           {/* Steps */}
           <div className="flex justify-between mb-6 sm:mb-8">
             {["Start", "Process", "Review", "Complete"].map((label, index) => (
-              <div key={index} className="flex flex-col items-center gap-1 sm:gap-2">
+              <div
+                key={index}
+                className="flex flex-col items-center gap-1 sm:gap-2"
+              >
                 <div
                   className={`w-9 h-9 sm:w-11 sm:h-11 rounded-full flex items-center justify-center text-white font-semibold shadow ${
                     index % 2 === 0 ? "bg-accent" : "bg-secondary"
@@ -120,15 +118,18 @@ export default function AdminDashboard() {
   );
 }
 
-
 function KpiCard({ title, value, icon, accent }) {
   return (
     <div className="relative overflow-hidden rounded-2xl bg-white shadow-lg p-4 sm:p-5 hover:shadow-xl transition">
-      <div className={`absolute inset-0 opacity-10 bg-gradient-to-br ${accent}`} />
+      <div
+        className={`absolute inset-0 opacity-10 bg-gradient-to-br ${accent}`}
+      />
       <div className="relative flex items-center justify-between">
         <div>
           <p className="text-xs sm:text-sm text-secondary/60">{title}</p>
-          <h2 className="text-xl sm:text-2xl font-bold text-secondary">{value}</h2>
+          <h2 className="text-xl sm:text-2xl font-bold text-secondary">
+            {value}
+          </h2>
         </div>
         <div
           className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl text-white flex items-center justify-center bg-gradient-to-br ${accent}`}

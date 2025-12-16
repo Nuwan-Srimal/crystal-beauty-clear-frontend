@@ -7,7 +7,6 @@ import { FaRegTrashCan } from "react-icons/fa6";
 import { Link, useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader";
 
-/* ---------------- DELETE CONFIRM ---------------- */
 
 function ProductDeleteConfirm({ productID, close, refresh }) {
 	function deleteProduct() {
@@ -58,7 +57,6 @@ function ProductDeleteConfirm({ productID, close, refresh }) {
 	);
 }
 
-/* ---------------- PRODUCTS PAGE ---------------- */
 
 export default function AdminProductPage() {
 	const [products, setProducts] = useState([]);
@@ -90,7 +88,6 @@ export default function AdminProductPage() {
 				/>
 			)}
 
-			{/* Floating Add */}
 			<Link
 				to="/admin/add-product"
 				className="fixed right-4 sm:right-8 bottom-4 sm:bottom-8 z-50 rounded-full bg-accent p-3 text-white shadow-lg hover:scale-105 transition"
@@ -114,7 +111,6 @@ export default function AdminProductPage() {
 				</span>
 			</div>
 
-			{/* ================= MOBILE VIEW ================= */}
 			<div className="sm:hidden space-y-3 overflow-y-auto">
 				{isLoading ? (
 					<div className="flex h-full items-center justify-center">
@@ -188,7 +184,6 @@ export default function AdminProductPage() {
 				)}
 			</div>
 
-			{/* ================= DESKTOP VIEW ================= */}
 			<div className="hidden sm:flex flex-1 rounded-2xl bg-white shadow border border-secondary/10 overflow-hidden">
 				<div className="w-full overflow-x-auto overflow-y-auto">
 					{isLoading ? (

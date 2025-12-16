@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { Loader } from "../../components/loader";
 import { MdOutlineAdminPanelSettings, MdVerified } from "react-icons/md";
 
-/* ---------------- BLOCK CONFIRM MODAL ---------------- */
 
 function UserBlockConfirm({ user, close, refresh }) {
   const email = user.email;
@@ -62,7 +61,6 @@ function UserBlockConfirm({ user, close, refresh }) {
   );
 }
 
-/* ---------------- USERS PAGE ---------------- */
 
 export default function AdminUsersPage() {
   const [users, setUsers] = useState([]);
@@ -140,7 +138,6 @@ export default function AdminUsersPage() {
         Showing {filteredUsers.length} of {users.length} users
       </div>
 
-      {/* ================= MOBILE VIEW (CARDS) ================= */}
       <div className="sm:hidden space-y-3 overflow-y-auto">
         {isLoading ? (
           <div className="flex h-full items-center justify-center">
@@ -203,7 +200,6 @@ export default function AdminUsersPage() {
         )}
       </div>
 
-      {/* ================= DESKTOP VIEW (TABLE) ================= */}
       <div className="hidden sm:flex flex-1 rounded-2xl bg-white shadow border border-secondary/10 overflow-hidden">
         <div className="w-full overflow-x-auto overflow-y-auto">
           {isLoading ? (

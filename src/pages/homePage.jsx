@@ -9,12 +9,12 @@ import AboutPage from "./about";
 import ContactPage from "./contact";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import CustomerReviews from "./customerReviews";
+// import CustomerReviews from "./customerReviews";
 
 export default function HomePage() {
   const [isAdmin, setIsAdmin] = useState(false);
 
-  // 🔐 Check admin (NO logic change, uses existing API)
+ 
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) return;
