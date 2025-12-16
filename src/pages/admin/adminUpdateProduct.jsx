@@ -68,24 +68,26 @@ export default function UpdateProductPage() {
 	}
 
 	return (
-		<div className="w-full h-full flex justify-center overflow-y-auto">
-			<div className="w-full max-w-4xl py-6">
+		<div className="w-full h-full flex justify-center overflow-y-auto px-3 sm:px-4">
+			<div className="w-full max-w-4xl py-4 sm:py-6">
 
 				<div className="rounded-2xl bg-white shadow-lg border border-secondary/10 overflow-hidden">
 
-					<div className="flex items-center justify-between px-6 py-5 border-b border-secondary/10">
+					{/* Header */}
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-secondary/10 gap-1">
 						<div>
-							<h1 className="text-xl font-semibold text-secondary">
+							<h1 className="text-lg sm:text-xl font-semibold text-secondary">
 								Update Product
 							</h1>
-							<p className="text-sm text-secondary/60">
+							<p className="text-xs sm:text-sm text-secondary/60">
 								Update product details and inventory
 							</p>
 						</div>
 					</div>
 
-					<div className="px-6 py-6">
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+					{/* Form */}
+					<div className="px-4 sm:px-6 py-5 sm:py-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 
 							<div>
 								<label className="text-sm font-medium text-secondary">
@@ -128,7 +130,7 @@ export default function UpdateProductPage() {
 								<textarea
 									value={description}
 									onChange={(e) => setDescription(e.target.value)}
-									className="mt-1 min-h-[120px] w-full rounded-xl border border-secondary/20 px-3 py-2 focus:ring-2 focus:ring-accent/30"
+									className="mt-1 min-h-[110px] sm:min-h-[120px] w-full rounded-xl border border-secondary/20 px-3 py-2 focus:ring-2 focus:ring-accent/30"
 								/>
 							</div>
 
@@ -140,7 +142,9 @@ export default function UpdateProductPage() {
 									type="file"
 									multiple
 									onChange={(e) => setImages(e.target.files)}
-									className="mt-2 block w-full rounded-xl border border-secondary/20 file:mr-4 file:rounded-lg file:border-0 file:bg-accent/10 file:px-4 file:py-2"
+									className="mt-2 block w-full rounded-xl border border-secondary/20
+									file:mr-4 file:rounded-lg file:border-0
+									file:bg-accent/10 file:px-4 file:py-2"
 								/>
 								<p className="mt-1 text-xs text-secondary/60">
 									Leave empty to keep existing images
@@ -200,20 +204,21 @@ export default function UpdateProductPage() {
 						</div>
 					</div>
 
-					<div className="flex items-center justify-between px-6 py-4 border-t border-secondary/10">
+					{/* Footer */}
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-t border-secondary/10">
 						<span className="text-xs text-secondary/60">
 							Ensure prices and stock are accurate before saving.
 						</span>
-						<div className="flex gap-3">
+						<div className="flex gap-3 justify-end">
 							<button
 								onClick={() => navigate("/admin/products")}
-								className="h-10 w-[110px] rounded-xl border border-secondary/20 hover:bg-secondary/5"
+								className="h-10 px-5 rounded-xl border border-secondary/20 hover:bg-secondary/5"
 							>
 								Cancel
 							</button>
 							<button
 								onClick={updateProduct}
-								className="h-10 w-[110px] rounded-xl bg-accent text-white hover:bg-accent/90"
+								className="h-10 px-5 rounded-xl bg-accent text-white hover:bg-accent/90"
 							>
 								Save
 							</button>

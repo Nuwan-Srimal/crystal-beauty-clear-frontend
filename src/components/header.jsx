@@ -6,6 +6,21 @@ import UserData from "./userData";
 import UserDataMobile from "./userDataMobile";
 import MobileNav from "./mobileNavigation";
 
+function NavLink({ to, children }) {
+  return (
+    <Link
+      to={to}
+      className="flex items-center justify-center h-8 leading-none"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function Divider() {
+  return <div className="w-px scale-120 h-8 bg-accent" />;
+}
+
 export default function Header() {
   const [isSideBarOpen, setIsSidebarOpen] = useState(false);
 
@@ -15,32 +30,45 @@ export default function Header() {
       role="banner"
     >
       <div className="max-w-7xl mx-auto h-full px-4 md:px-8 grid grid-cols-3 items-center">
-        
         <div className="flex items-center">
-          <button className="lg:hidden text-3xl" onClick={() => setIsSidebarOpen(true)} aria-label="Open menu">
+          <button
+            className="lg:hidden text-3xl"
+            onClick={() => setIsSidebarOpen(true)}
+            aria-label="Open menu"
+          >
             <MdMenu />
           </button>
 
           <Link to="/" className="hidden lg:flex items-center">
-            <img src="/logo.png" className="h-[100px] object-contain" alt="CBC logo" />
+            <img
+              src="/logo.png"
+              className="h-[100px] -ml-[25px] scale-180 object-contain"
+              alt="CBC logo"
+            />
           </Link>
         </div>
-
+        {/* mobile logo */}
         <div className="flex justify-center items-center">
           <Link to="/" className="lg:hidden">
-            <img src="/logo.png" className="h-[100px] object-contain" alt="CBC logo" />
+            <img
+              src="/logo.png"
+              className="h-[100px] object-contain"
+              alt="CBC logo"
+            />
           </Link>
 
-          <nav className="hidden lg:flex gap-6 text-lg font-medium">
-            <Link to="/">Home</Link>
-            <Link to="/products">Products</Link>
-            <Link to="/about">About</Link>
-            <Link to="/contact">Contact</Link>
+          <nav className="hidden lg:flex -ml-20 items-center gap-10 rounded-full bg-primary/80 text-black px-6 py-2 text-xl font-medium">
+            <NavLink to="/">Home</NavLink>
+            <Divider />
+            <NavLink to="/products">Products</NavLink>
+            <Divider />
+            <NavLink to="/about">About</NavLink>
+            <Divider />
+            <NavLink to="/contact">Contact</NavLink>
           </nav>
         </div>
 
         <div className="flex items-center justify-end gap-3">
-          
           {/*desktop*/}
           <div className="hidden lg:block w-[240px]">
             <UserData />
@@ -53,7 +81,7 @@ export default function Header() {
 
           <Link
             to="/cart"
-            className="hidden lg:flex text-3xl p-2 rounded-full hover:bg-white/10 transition"
+            className="hidden lg:flex text-3xl p-2 rounded-full hover:bg-white/10 transition mr-[-45px]"
             aria-label="View cart"
           >
             <BsCart3 />

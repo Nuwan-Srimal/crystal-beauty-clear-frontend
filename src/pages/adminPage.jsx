@@ -13,6 +13,8 @@ import toast from "react-hot-toast";
 import { Loader } from "../components/loader";
 import AdminUsersPage from "./admin/usersPage";
 import AdminDashboard from "./admin/adminDashboard";
+import { HiOutlineHome } from "react-icons/hi";
+
 
 export default function AdminPage() {
   const navigate = useNavigate();
@@ -63,31 +65,38 @@ export default function AdminPage() {
   }, []);
 
   return (
-    <div className="w-full h-full bg-accent/40 flex gap-4 p-4 text-secondary overflow-hidden">
-      <div className="w-[280px] bg-white/70 rounded-2xl shadow-lg p-4 flex flex-col">
-        <div className="flex items-center gap-3 bg-accent rounded-xl p-3 mb-8">
+    <div className="w-full h-screen bg-accent/40 flex flex-col lg:flex-row gap-4 p-3 sm:p-4 text-secondary overflow-hidden">
+
+      {/* Sidebar */}
+      <div className="w-full lg:w-[280px] bg-white/70 rounded-2xl shadow-lg p-4 flex flex-col">
+        <div className="flex items-center gap-3 bg-accent rounded-xl p-3 mb-6">
           <img src="/logo.png" alt="CBC" className="h-10" />
-          <span className="text-white text-lg font-semibold">
+          <span className="text-white text-base sm:text-lg font-semibold">
             Admin Panel
           </span>
         </div>
-
-        <nav className="flex flex-col gap-2 text-sm font-medium">
+        
+        <nav className="flex lg:flex-col flex-row lg:gap-2 gap-1 text-sm font-medium overflow-x-auto lg:overflow-visible">
+          <NavItem to="/" icon={<HiOutlineHome />} label="Home" />
           <NavItem to="/admin" icon={<FaChartLine />} label="Dashboard" />
           <NavItem to="/admin/orders" icon={<MdShoppingCartCheckout />} label="Orders" />
           <NavItem to="/admin/products" icon={<BsBox2Heart />} label="Products" />
           <NavItem to="/admin/users" icon={<HiOutlineUsers />} label="Users" />
         </nav>
 
-        <div className="mt-auto text-xs text-secondary/50 text-center pt-6">
+        <div className="hidden lg:block mt-auto text-xs text-secondary/50 text-center pt-6">
           © Crystal Beauty Clear
         </div>
       </div>
 
+      {/* Main Content */}
       <div className="flex-1 bg-white/70 rounded-2xl shadow-lg overflow-hidden flex flex-col">
 
-        <div className="flex items-center justify-between p-6 border-b border-secondary/10">
-          <h1 className="text-xl font-semibold">Admin Dashboard</h1>
+        {/* Top Bar */}
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-secondary/10">
+          <h1 className="text-lg sm:text-xl font-semibold">
+            Admin Dashboard
+          </h1>
 
           <div className="relative">
             <button
@@ -98,10 +107,10 @@ export default function AdminPage() {
                 <img
                   src={profileImage}
                   alt="Profile"
-                  className="w-10 h-10 rounded-full object-cover shadow"
+                  className="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover shadow"
                 />
               ) : (
-                <div className="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold shadow">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-accent text-white flex items-center justify-center font-bold shadow">
                   {userName.charAt(0).toUpperCase()}
                 </div>
               )}
@@ -130,7 +139,8 @@ export default function AdminPage() {
           </div>
         </div>
 
-        <div className="flex-1 overflow-hidden p-6">
+        {/* Page Content */}
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
           {userLoaded ? (
             <Routes path="/">
               <Route path="/" element={<AdminDashboard />} />
@@ -155,11 +165,11 @@ function NavItem({ to, icon, label }) {
   return (
     <Link
       to={to}
-      className="flex items-center gap-3 px-4 py-3 rounded-xl
-        hover:bg-accent/10 hover:text-accent transition"
+      className="flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2 sm:py-3 rounded-xl
+      hover:bg-accent/10 hover:text-accent transition whitespace-nowrap"
     >
       <span className="text-lg">{icon}</span>
-      <span>{label}</span>
+      <span className="hidden sm:inline">{label}</span>
     </Link>
   );
 }
