@@ -14,6 +14,7 @@ export default function AddProductPage() {
 	const [labelledPrice, setLabelledPrice] = useState(0);
 	const [category, setCategory] = useState("cream");
 	const [stock, setStock] = useState(0);
+
 	const navigate = useNavigate();
 
 	async function addProduct() {
@@ -27,215 +28,203 @@ export default function AddProductPage() {
 		for (let i = 0; i < images.length; i++) {
 			promises[i] = mediaUpload(images[i]);
 		}
-		//
+
 		try {
 			const urls = await Promise.all(promises);
-			const alternativeNames = altNames.split(",")
+			const alternativeNames = altNames.split(",");
 
 			const product = {
-				productID : productId,
-				name : name,
-				altNames : alternativeNames,
-				description : description,
-				images : urls,
-				price : price,
-				labelledPrice : labelledPrice,
-				category : category,
-				stock : stock
-			}
+				productID: productId,
+				name,
+				altNames: alternativeNames,
+				description,
+				images: urls,
+				price,
+				labelledPrice,
+				category,
+				stock,
+			};
 
-			await axios.post(import.meta.env.VITE_API_URL+"/api/products",product,{
-				headers:{
-					Authorization : "Bearer "+token
+			await axios.post(
+				import.meta.env.VITE_API_URL + "/api/products",
+				product,
+				{
+					headers: {
+						Authorization: "Bearer " + token,
+					},
 				}
-			})
+			);
+
 			toast.success("Product added successfully");
 			navigate("/admin/products");
-
 		} catch {
 			toast.error("An error occurred");
 		}
-
 	}
 
 	return (
-		<div className="min-h-screen w-full bg-primary/70 flex items-center justify-center p-6">
-			<div className="w-full max-w-3xl rounded-2xl border border-accent/30 bg-white shadow-xl">
-				{/* Header */}
-				<div className="flex items-center justify-between gap-3 border-b border-accent/20 px-6 py-5">
-					<div>
-						<h1 className="text-xl font-semibold text-secondary">
-							Add Product
-						</h1>
-						<p className="text-sm text-secondary/70">
-							Create a new SKU with clean metadata.
-						</p>
+		<div className="w-full h-full flex justify-center overflow-y-auto px-3 sm:px-4">
+			<div className="w-full max-w-4xl py-4 sm:py-6">
+
+				<div className="rounded-2xl bg-white shadow-lg border border-secondary/10 overflow-hidden">
+
+					{/* Header */}
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5 border-b border-secondary/10 gap-1">
+						<div>
+							<h1 className="text-lg sm:text-xl font-semibold text-secondary">
+								Add Product
+							</h1>
+							<p className="text-xs sm:text-sm text-secondary/60">
+								Create a new product for your store
+							</p>
+						</div>
 					</div>
-					<div className="h-10 w-10 rounded-full bg-accent/15 ring-1 ring-accent/30" />
-				</div>
 
-				{/* Form grid */}
-				<div className="px-6 py-6">
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-						{/* Product ID */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Product ID
-							</span>
-							<input
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={productId}
-								onChange={(e) => {
-									setProductId(e.target.value);
-								}}
-								placeholder="e.g., DS-CR-001"
-							/>
-						</label>
+					{/* Form */}
+					<div className="px-4 sm:px-6 py-5 sm:py-6">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
 
-						{/* Name */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Name</span>
-							<input
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={name}
-								onChange={(e) => {
-									setName(e.target.value);
-								}}
-								placeholder="e.g., Diamond Shine Night Cream"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Product ID
+								</label>
+								<input
+									value={productId}
+									onChange={(e) => setProductId(e.target.value)}
+									placeholder="e.g. CBC0000001"
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Alt Names */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">
-								Alternative Names
-							</span>
-							<input
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={altNames}
-								onChange={(e) => {
-									setAltNames(e.target.value);
-								}}
-								placeholder="Comma-separated; e.g., night cream, hydrating cream"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Name
+								</label>
+								<input
+									value={name}
+									onChange={(e) => setName(e.target.value)}
+									placeholder="Diamond Shine Night Cream"
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Description */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">
-								Description
-							</span>
-							<textarea
-								className="min-h-[120px] rounded-xl border border-secondary/20 bg-white px-3 py-2 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-								value={description}
-								onChange={(e) => {
-									setDescription(e.target.value);
-								}}
-								placeholder="Brief product overview, benefits, and usage."
-							/>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Alternative Names
+								</label>
+								<input
+									value={altNames}
+									onChange={(e) => setAltNames(e.target.value)}
+									placeholder="night cream, hydrating cream"
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Images */}
-						<label className="flex flex-col gap-1.5 md:col-span-2">
-							<span className="text-sm font-medium text-secondary">Images</span>
-							<input
-								type="file"
-								onChange={(e) => {
-									setImages(e.target.files);
-								}}
-								multiple
-								className="block w-full cursor-pointer rounded-xl border border-secondary/20 bg-white file:mr-4 file:rounded-lg file:border-0 file:bg-accent/10 file:px-4 file:py-2 file:text-secondary file:font-medium hover:file:bg-accent/20 transition"
-							/>
-							<span className="text-xs text-secondary/60">
-								PNG/JPG recommended. Multiple files supported.
-							</span>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Description
+								</label>
+								<textarea
+									value={description}
+									onChange={(e) => setDescription(e.target.value)}
+									placeholder="Brief product description and usage"
+									className="mt-1 min-h-[110px] sm:min-h-[120px] w-full rounded-xl border border-secondary/20 px-3 py-2 focus:ring-2 focus:ring-accent/30"
+								/>
+							</div>
 
-						{/* Price */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Price</span>
-							<input
-								type="number"
-								value={price}
-								onChange={(e) => {
-									setPrice(e.target.value);
-								}}
-								placeholder="0.00"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+							<div className="md:col-span-2">
+								<label className="text-sm font-medium text-secondary">
+									Images
+								</label>
+								<input
+									type="file"
+									multiple
+									onChange={(e) => setImages(e.target.files)}
+									className="mt-2 block w-full rounded-xl border border-secondary/20
+										file:mr-4 file:rounded-lg file:border-0
+										file:bg-accent/10 file:px-4 file:py-2
+										file:text-secondary"
+								/>
+								<p className="mt-1 text-xs text-secondary/60">
+									PNG / JPG · Multiple files supported
+								</p>
+							</div>
 
-						{/* Labelled Price */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Labelled Price
-							</span>
-							<input
-								type="number"
-								value={labelledPrice}
-								onChange={(e) => {
-									setLabelledPrice(e.target.value);
-								}}
-								placeholder="MRP / Sticker Price"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Price
+								</label>
+								<input
+									type="number"
+									value={price}
+									onChange={(e) => setPrice(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
 
-						{/* Category */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">
-								Category
-							</span>
-							<select
-								value={category}
-								onChange={(e) => {
-									setCategory(e.target.value);
-								}}
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Labelled Price
+								</label>
+								<input
+									type="number"
+									value={labelledPrice}
+									onChange={(e) => setLabelledPrice(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
+
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Category
+								</label>
+								<select
+									value={category}
+									onChange={(e) => setCategory(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								>
+									<option value="cream">Cream</option>
+									<option value="lotion">Lotion</option>
+									<option value="serum">Serum</option>
+								</select>
+							</div>
+
+							<div>
+								<label className="text-sm font-medium text-secondary">
+									Stock
+								</label>
+								<input
+									type="number"
+									value={stock}
+									onChange={(e) => setStock(e.target.value)}
+									className="mt-1 h-11 w-full rounded-xl border border-secondary/20 px-3"
+								/>
+							</div>
+
+						</div>
+					</div>
+
+					{/* Footer */}
+					<div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 px-4 sm:px-6 py-4 border-t border-secondary/10">
+						<span className="text-xs text-secondary/60">
+							Ensure all product details are correct before submitting.
+						</span>
+						<div className="flex gap-3 justify-end">
+							<button
+								onClick={() => navigate("/admin/products")}
+								className="h-10 px-5 rounded-xl border border-secondary/20 hover:bg-secondary/5"
 							>
-								<option value="cream">Cream</option>
-								<option value="lotion">Lotion</option>
-								<option value="serum">Serum</option>
-							</select>
-						</label>
-
-						{/* Stock */}
-						<label className="flex flex-col gap-1.5">
-							<span className="text-sm font-medium text-secondary">Stock</span>
-							<input
-								type="number"
-								value={stock}
-								onChange={(e) => {
-									setStock(e.target.value);
-								}}
-								placeholder="0"
-								className="h-11 rounded-xl border border-secondary/20 bg-white px-3 text-secondary placeholder:text-secondary/40 outline-none focus:border-accent focus:ring-4 focus:ring-accent/20 transition"
-							/>
-						</label>
+								Cancel
+							</button>
+							<button
+								onClick={addProduct}
+								className="h-10 px-5 rounded-xl bg-accent text-white hover:bg-accent/90"
+							>
+								Add Product
+							</button>
+						</div>
 					</div>
-				</div>
 
-				{/* Footer */}
-				<div className="flex items-center justify-between gap-3 border-t border-accent/20 px-6 py-4">
-					<span className="text-xs text-secondary/60">
-						Tip: Maintain consistent naming for SKU discoverability.
-					</span>
-					<div className="flex items-center gap-2">
-						<button
-							onClick={() => {
-								navigate("/admin/products");
-							}}
-							className="rounded-full bg-[#FF000050] px-3 h-[40px] w-[100px] py-1 text-md flex justify-center items-center font-medium text-secondary ring-1 ring-accent/30 hover:border-red-500 hover:border-[2px]"
-						>
-							Cancel
-						</button>
-						<button
-							onClick={addProduct}
-							className="rounded-full bg-accent/15 px-3 h-[40px] w-[100px] py-1 text-md flex justify-center items-center font-medium text-secondary ring-1 ring-accent/30 hover:border-accent hover:border-[2px]"
-						>
-							Submit
-						</button>
-					</div>
 				</div>
 			</div>
 		</div>
